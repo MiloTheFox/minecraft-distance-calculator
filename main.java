@@ -59,8 +59,8 @@ class CalculateDistance {
         String pointAString = formatPoint(pointA, 1);
         String pointBString = formatPoint(pointB, 1);
 
-        // Print the calculated distance between point A and point B
-        System.out.println("The Distance between (\033[0;33m"+  (pointAString) +  "\033[0m)" + " and (\033[0;33m" + pointBString + "\033[0m) is " + (int) distance);
+        // Print the calculated distance between point A and point B (Prints the values given)
+        System.out.format("The Distance between (\033[0;33m%s\033[0m) and (\033[0;33m%s\033[0m) using the %s Method is approximately %d Blocks.\n", (pointAString), (pointBString), (metric), ((int) distance));
     }
 
     // Read the x, y, and z coordinates of a point from the user
