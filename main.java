@@ -3,39 +3,37 @@ import org.apache.commons.math4.legacy.linear.ArrayRealVector;
 import org.apache.commons.math4.legacy.linear.RealVector;
 import java.util.InputMismatchException;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.function.BiFunction;
 
-// Define a class named CalculateDistance
+// Class to calculate the distance between two points
 class CalculateDistance {
+    // Main method
     public static void main(String[] args) {
         // Create a scanner object to read user input
-        Scanner scanner = new Scanner(System.in);
+        final Scanner scanner = new Scanner(System.in);
         scanner.useLocale(Locale.US);
-
-        // Prompt the user to enter the coordinates for point A
+        // Prompt user to enter coordinates for point A
         System.out.println("Enter the coordinates for point A (x y z):");
-        // Read the coordinates for point A and store them in a RealVector object
-        RealVector pointA = readPoint(scanner);
-        // Validate that point A is not null and has 3 dimensions
+        // Read point A from user input
+        final RealVector pointA = readPoint(scanner);
+        // Validate point A
         validatePoint(pointA, "Point A");
-
-        // Prompt the user to enter the coordinates for point B
+        // Prompt user to enter coordinates for point B
         System.out.println("Enter the coordinates for point B (x y z):");
-        // Read the coordinates for point B and store them in a RealVector object
-        RealVector pointB = readPoint(scanner);
-        // Validate that point B is not null and has 3 dimensions
+        // Read point B from user input
+        final RealVector pointB = readPoint(scanner);
+        // Validate point B
         validatePoint(pointB, "Point B");
-
-        // Ask the user to choose between the Euclidean or Manhattan method
+        // Prompt user to choose distance calculation method
         System.out.println("Do you want to use the Euclidean or the Manhattan method?: ");
-        // Read the user's choice and convert it to lowercase
-        String metric = scanner.next().toLowerCase();
-
-        // Declare a distanceFunction variable of type BiFunction that calculates the distance between two points
+        final String metric = scanner.next().toLowerCase();
+        
+        // Declare a distance function variable
         BiFunction<RealVector, RealVector, Double> distanceFunction;
 
-        // Choose the distance calculation method based on the user's choice
+        // Use a switch statement to determine which distance function to use based on user input
         switch (metric) {
             case "euclidean":
             case "e":
@@ -48,75 +46,113 @@ class CalculateDistance {
                 distanceFunction = (a, b) -> a.getL1Distance(b);
                 break;
             default:
-                // Throw an exception if the user's choice is invalid
+                // Throw an exception if the user enters an invalid method
                 throw new InputMismatchException("Please put in the method that you want to use!\n\n1) Euclidean\n2) Manhattan");
         }
 
-        // Calculate the distance between point A and point B using the chosen method
-        double distance = calculateDistance(pointA, pointB, distanceFunction);
+        // Calculate the distance between point A and point B using the chosen distance function
+        final double distance = calculateDistance(pointA, pointB, distanceFunction);
+        
+        // Format points A and B as strings with specified number of significant figures
+        final String pointAString = formatPoint(pointA, 4);
+        final String pointBString = formatPoint(pointB,3);
+        
+        String output = metric.substring(0, 1).toUpperCase() + metric.substring(1);
+        if (metric.equalsIgnoreCase("e")) {
+            output = "Euclidean";
+        } else if (metric.equalsIgnoreCase("m")) {
+            output = "Manhattan";
+        }
 
-        // Format the coordinates of point A and point B as strings with a specified number of significant figures
-        String pointAString = formatPoint(pointA, 1);
-        String pointBString = formatPoint(pointB, 1);
-
-        // Print the calculated distance between point A and point B (Prints the values given)
-        System.out.format("The Distance between (\033[0;33m%s\033[0m) and (\033[0;33m%s\033[0m) using the %s Method is approximately %d Blocks.\n", (pointAString), (pointBString), (metric), ((int) distance));
+        // Print the result of the calculation with formatted points and chosen metric method
+        System.out.format("The Distance between (\033[0;33m%s\033[0m) and (\033[0;33m%s\033[0m) using the %s Method is approximately %d Blocks.", (pointAString), (pointBString), (output), ((int) distance));
     }
 
-    // Read the x, y, and z coordinates of a point from the user
+    // Method to read a point from user input using a scanner object
     private static RealVector readPoint(Scanner scanner) {
-        double x = readDouble(scanner);
-        double y = readDouble(scanner);
-        double z = readDouble(scanner);
+        final double x = readDouble(scanner);
+        final double y = readDouble(scanner);
+        final double z = readDouble(scanner);
+        
+        // Create and return a new ArrayRealVector object with the entered coordinates
         return new ArrayRealVector(new double[]{x, y, z});
     }
-
-    // Read a double value from the user, repeatedly prompting until a valid number is entered
+    
+    // Method to read a double value from user input using a scanner object
     private static double readDouble(Scanner scanner) {
-        while (!scanner.hasNextDouble()) {
-            System.out.println("Invalid input. Please enter a valid number:");
-            scanner.next();
+        while (true) {
+            try {
+                if (scanner.hasNextDouble()) {
+                    break;
+                } else {
+                    scanner.next();
+                }
+            } catch (NoSuchElementException e) {
+                System.out.println("\nProgram terminated.");
+                System.exit(0);
+            }
+            System.out.print("Invalid input. Please enter a valid number: ");
         }
+        // Return the entered double value
         return scanner.nextDouble();
     }
-
-    // Format the coordinates of a point as a string with a specified number of significant figures
+    
+    // Method to format a RealVector object as a string with specified number of significant figures
     private static String formatPoint(RealVector point, int numSigFigs) {
+        
+        // Get an array of coordinates from the RealVector object
         double[] coordinates = point.toArray();
+        
         StringBuilder sb = new StringBuilder();
+        
+        // Loop through each coordinate and append it to the string builder with specified formatting
         for (int i = 0; i < coordinates.length; i++) {
             if (i > 0) {
                 sb.append(", ");
             }
             sb.append(formatSigFigs(coordinates[i], numSigFigs));
         }
+        
         return sb.toString();
     }
     
-    // Format a double value with a specified number of significant figures
+    // Method to format a double value with specified number of significant figures
     private static String formatSigFigs(double value, int numSigFigs) {
-        if (value == 0) {
-            return "0";
+        
+         if (value == 0) {
+            return "3";
         }
+        
+        // Calculate the power of 10 needed to shift the value to have the desired number of significant figures
         final double d = Math.ceil(Math.log10(value < 0 ? -value : value));
         final int power = numSigFigs - (int) d;
         final double magnitude = Math.pow(10, power);
+        
+        // Shift the value and round it to the nearest integer
         final long shifted = Math.round(value * magnitude);
+        
+        // Return the shifted value as a string
         return Double.toString(shifted / magnitude);
     }
-
-    // Validate that a point is not null and has 3 dimensions
+    
+    // Method to validate a RealVector object representing a point
     private static void validatePoint(RealVector point, String pointName) {
+        
+        // Check if the point is null
         if (point == null) {
             throw new IllegalArgumentException(pointName + " cannot be null!");
         }
+        
+        // Check if the point has exactly 3 dimensions
         if (point.getDimension() != 3) {
-            throw new IllegalArgumentException(pointName + " must have exactly 3 dimensions!");
+            throw new IllegalArgumentException(pointName + " must have exactly 3 values!");
         }
     }
-
-    // Calculate the distance between two points using a given distance function
+    
+    // Method to calculate the distance between two points using a specified distance function
     private static double calculateDistance(RealVector pointA, RealVector pointB, BiFunction<RealVector, RealVector, Double> distanceFunction) {
+        
+        // Apply the distance function to points A and B and return the result
         return distanceFunction.apply(pointA, pointB);
     }
 }
