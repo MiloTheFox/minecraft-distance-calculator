@@ -35,13 +35,13 @@ Manhattan:
 
 ## Explanation of the different Calculation Methods
 
-Euclidean:
+**Euclidean:**
 
 The Euclidean distance method uses the Pythagorean theorem, which gives the shortest or minimum distance between two points. The Euclidean distance method is also called the L2 norm or L2 metric, while the Manhattan distance method is also called the L1 norm or L1 metric. For example, if you have two points A and B in a two-dimensional space (a plane), and their coordinates are (x1, y1, z1) and (x2, y2, z2), then the Euclidean distance between them is given by:
 
 $$d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2}$$
 
-Manhattan:
+**Manhattan:**
 
 The Manhattan distance method uses the sum of the absolute differences between the coordinates of the points in each dimension, which gives the distance a car or a taxi would have to drive in a city with a grid layout.
 
