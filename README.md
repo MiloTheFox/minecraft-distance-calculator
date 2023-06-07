@@ -42,16 +42,53 @@ Manhattan:
 
 **Euclidean:**
 
-The Euclidean distance method uses the Pythagorean theorem, which gives the shortest or minimum distance between two points. The Euclidean distance method is also called the L2 norm or L2 metric, while the Manhattan distance method is also called the L1 norm or L1 metric. For example, if you have two points A and B in a two-dimensional space (a plane), and their coordinates are (x1, y1, z1) and (x2, y2, z2), then the Euclidean distance between them is given by:
+Here is a possible way to rewrite the text to make it more human-like:
 
-$$d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2 + (z_2 - z_1)^2}$$
+Do you remember learning about distance in geometry class? You probably learned that distance is the length of the line that connects two points. That is the idea behind the Euclidean distance method, which is named after Euclid, the famous Greek mathematician who studied geometry.
+
+The Euclidean distance method is a way to measure how far apart two points are in any space that has more than one dimension. For example, you can use it to measure the distance between two points on a map, or two stars in the sky, or two pixels on a screen. It helps you compare how similar or different two points or objects are based on where they are located.
+
+To find the Euclidean distance between two points, you need to know their coordinates. The coordinates tell you how far the points are from a fixed point called the origin, and from each other along different directions called axes. For example, in a two-dimensional space, you have an x-axis and a y-axis, and each point has an x-coordinate and a y-coordinate.
+
+The formula for the Euclidean distance between two points (x1, y1) and (x2, y2) in a two-dimensional space is:
+
+$$Euclidean Distance = \sqrt{((x1 - x2)^2 + (y1 - y2)^2)}$$
+
+This formula tells you to subtract the coordinates of the points, square them, add them up, and take the square root. This gives you the length of the line that connects the points.
+
+For example, suppose you have two points A(2, 3) and B(5, 7). To find the Euclidean distance between them, you plug in their coordinates into the formula:
+
+$$\sqrt{((2 - 5)^2 + (3 - 7)^2) = √((-3)^2 + (-4)^2) = √(9 + 16) = √25 = 5}$$
+
+So, the Euclidean distance between points A and B is 5.
+
+The Euclidean distance method works not only in two dimensions, but also in higher dimensions. For example, if you have three coordinates for each point, such as (x1, y1, z1) and (x2, y2, z2), you can use the same formula but add one more term:
+
+$$\sqrt{((x1 - x2)^2 + (y1 - y2)^2 + (z1 - z2)^2)}$$
+
+This means that you also consider how far the points are along a third axis called the z-axis.
+
+The Euclidean distance method is very popular because it makes sense geometrically and has some nice features. For instance, it is always positive, it is the same no matter which way you go, and it never underestimates the distance. These features make it a good way to measure how close or far away two points or objects are in math and computer science.
 
 **Manhattan:**
 
-The Manhattan distance method uses the sum of the absolute differences between the coordinates of the points in each dimension, which gives the distance a car or a taxi would have to drive in a city with a grid layout.
+Imagine you are in Manhattan, where the streets are arranged like a grid. To get from one place to another, you can only walk along the streets, not diagonally or across blocks. The Manhattan distance method tells you how far you have to walk by adding up the number of blocks you have to go east or west, and the number of blocks you have to go north or south.
 
-Here's an example of the aforementioned two-dimensional space and the coordinates being (x1, y1, z1) and (x2, y2, z2):
-$$d = |x_2 - x_1| + |y_2 - y_1| + | z_2 - z_1 |$$
+For example, suppose you are at point A(3, 5) and you want to go to point B(7, 9). You can’t just draw a straight line between them and measure it. You have to walk along the streets. One way to do that is to go 4 blocks east and then 4 blocks north. The total number of blocks you have to walk is 4 + 4 = 8. That is the Manhattan distance between points A and B.
+
+You can also write this as a formula:
+
+$$|x1 - x2| + |y1 - y2|$$
+
+Here, x1 and x2 are the east-west coordinates of the points, and y1 and y2 are the north-south coordinates of the points. The vertical bars mean that you take the absolute value, which means that you ignore the sign and just look at how big the number is. This way, you always get a positive distance, no matter which direction you go.
+
+The Manhattan distance method works not only in two dimensions, but also in higher dimensions. For example, if you have three coordinates for each point, such as (x1, y1, z1) and (x2, y2, z2), you can use the same formula but add one more term:
+
+$$|x1 - x2| + |y1 - y2| + |z1 - z2|$$
+
+This means that you also consider how far you have to go up or down in addition to east-west and north-south.
+
+The Manhattan distance method has some nice features that make it useful for many purposes. For instance, it is always positive, it is the same no matter which way you go, and it never overestimates the distance.
 
 ## Issues
 
