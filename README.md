@@ -42,8 +42,6 @@ Manhattan:
 
 **Euclidean:**
 
-Here is a possible way to rewrite the text to make it more human-like:
-
 Do you remember learning about distance in geometry class? You probably learned that distance is the length of the line that connects two points. That is the idea behind the Euclidean distance method, which is named after Euclid, the famous Greek mathematician who studied geometry.
 
 The Euclidean distance method is a way to measure how far apart two points are in any space that has more than one dimension. For example, you can use it to measure the distance between two points on a map, or two stars in the sky, or two pixels on a screen. It helps you compare how similar or different two points or objects are based on where they are located.
