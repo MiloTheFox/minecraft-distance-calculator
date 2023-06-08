@@ -33,10 +33,10 @@ If you don't know how to get your coordinates, follow these steps:
 
 ## Examples
 Euclidean:
-[![Screenshot-2023-06-03-041524.png](https://i.postimg.cc/HW3CwWCX/Screenshot-2023-06-03-041524.png)](https://i.postimg.cc/HW3CwWCX/)
+[![Screenshot-2023-06-08-022958.png](https://i.postimg.cc/157h46JB/Screenshot-2023-06-08-022958.png)](https://postimg.cc/rK4YPd6R)
 
 Manhattan:
-[![Screenshot-2023-06-03-041504.png](https://i.postimg.cc/J4nCPw1g/Screenshot-2023-06-03-041504.png)](https://i.postimg.cc/J4nCPw1g/)
+[![Screenshot-2023-06-08-023038.png](https://i.postimg.cc/RVZxMGQq/Screenshot-2023-06-08-023038.png)](https://postimg.cc/jCmFcH1r)
 
 ## Explanation of the different Calculation Methods
 
