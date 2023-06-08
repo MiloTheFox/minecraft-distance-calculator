@@ -17,7 +17,7 @@ git clone https://github.com/Sweet-Tooth11/minecraft-distance-calculator.git
 
 ## Disclaimer
 
-This code assumes that you have a solid understanding of Java. I will not help you with the most basic stuff that you don't understand. If you want to learn more about Java, please head to [this](https://docs.oracle.com/javase/tutorial/) Website.
+This code is intended for users who have a solid understanding of Java. If you are new to Java or need to refresh your skills, please visit [this](https://www.w3schools.com/java/java_intro.asp) Website for a comprehensive tutorial. I may not be able to answer basic questions about Java syntax or concepts. Thank you for your understanding and cooperation.🙏
 
 ## Usage
 
