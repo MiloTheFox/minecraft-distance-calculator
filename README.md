@@ -9,14 +9,10 @@ To install the Minecraft distance calculator, follow these steps:
 ```shell
 git clone https://github.com/Sweet-Tooth11/minecraft-distance-calculator.git
 ```
-
 2. Install and include the following library into the project:
 - [Apache Commons Math](https://commons.apache.org/proper/commons-math/download_math.cgi): A library providing mathematical and statistical components.
-
 3. Navigate to the repository directory and run `javac -cp "./libraries/commons-math4-core-4.0-beta1.jar;./libraries/commons-math4-legacy-4.0-beta1.jar;./libraries/commons-math4-legacy-exception-4.0-beta1.jar" main.java` to compile the code.
-
 4. Run `java -cp "./libraries/commons-math4-core-4.0-beta1.jar;./libraries/commons-math4-legacy-4.0-beta1.jar;./libraries/commons-math4-legacy-exception-4.0-beta1.jar" main.java` to start the program.
-
 5. Follow the instructions and get the distance between the coordinates of provided points.
 
 ## Disclaimer
