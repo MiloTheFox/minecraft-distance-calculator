@@ -29,7 +29,7 @@ If you don't know how to get your coordinates, follow these steps:
 
 [![Example](https://i.postimg.cc/gcf8zpxF/2023-06-03-04-27-22.png)](https://postimg.cc/w3Q72S50)
 
-3. Note these coordinates down (either through Notepad, noting these down using the Chat or directly copying them into the clipboard using Debugging Controls [F3 + B]).
+3. Note these coordinates down (either through Notepad, noting these down using the Chat or directly copying them into the clipboard using Debugging Controls [F3 + C]).
 
 ## Examples
 Euclidean:
