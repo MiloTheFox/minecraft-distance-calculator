@@ -52,21 +52,24 @@ class CalculateDistance {
                 if (metric.equalsIgnoreCase("exit")) {
                     return;
                 }
-                // Use a switch statement to determine which distance function to use based on user input
+                // Use a switch statement to determine which distance function to use based on
+                // user input
                 switch (metric) {
-                    // Use the Euclidean distance formula
+                    // If "euclidean" or "e" has been provided, use the Euclidean distance formula
                     case "euclidean", "e" -> distanceFunction = (a, b) -> a.getDistance(b);
-                    // Use the Manhattan distance formula
+                    // If "manhattan" or "m" has been provided, use the Manhattan distance formula
                     case "manhattan", "m" -> distanceFunction = (a, b) -> a.getL1Distance(b);
                     // Otherwise tell the user to enter either 'euclidean' or 'manhattan'
-                    default -> System.out.println("Please enter 'euclidean' or 'manhattan' for the distance calculation method.");
+                    default -> System.out
+                            .println("Please enter 'euclidean' or 'manhattan' for the distance calculation method.");
                 }
             }
 
-            // Calculate the distance between point A and point B using the chosen distance function
+            // Calculate the distance between point A and point B using the chosen distance
+            // function
             final double distance = calculateDistance(pointA, pointB, distanceFunction);
             // Format points A and B as strings with specified number of significant figures
-            String pointAString = formatPoint(pointA, 4);
+            String pointAString = formatPoint(pointA, 3);
             String pointBString = formatPoint(pointB, 3);
 
             String output = metric.substring(0, 1).toUpperCase() + metric.substring(1);
@@ -76,8 +79,10 @@ class CalculateDistance {
                 output = "Manhattan";
             }
 
-            // Print the result of the calculation with formatted points and chosen metric method
-            System.out.format("The Distance between (\033[0;33m%s\033[0m) and (\033[0;33m%s\033[0m) using the %s Method is approximately %d Blocks.",
+            // Print the result of the calculation with formatted points and chosen metric
+            // method
+            System.out.format(
+                    "The Distance between (\033[0;33m%s\033[0m) and (\033[0;33m%s\033[0m) using the %s Method is approximately %d Blocks.",
                     pointAString, pointBString, output, (int) distance);
         }
     }
@@ -92,19 +97,21 @@ class CalculateDistance {
             double x = Double.parseDouble(args[0]);
             double y = Double.parseDouble(args[1]);
             double z = Double.parseDouble(args[2]);
-            return new ArrayRealVector(new double[]{x, y, z});
+            return new ArrayRealVector(new double[] { x, y, z });
         } catch (NumberFormatException e) {
             System.out.println("Invalid coordinate");
             return null;
         }
     }
 
-    // Method to format a RealVector object as a string with specified number of significant figures
+    // Method to format a RealVector object as a string with specified number of
+    // significant figures
     private static String formatPoint(RealVector point, int numSigFigs) {
         // Get an array of coordinates from the RealVector object
         double[] coordinates = point.toArray();
         StringBuilder sb = new StringBuilder();
-        // Loop through each coordinate and append it to the string builder with specified formatting
+        // Loop through each coordinate and append it to the string builder with
+        // specified formatting
         for (int i = 0; i < coordinates.length; i++) {
             if (i > 0) {
                 sb.append(", ");
@@ -119,7 +126,8 @@ class CalculateDistance {
         if (value == 0) {
             return "3";
         }
-        // Calculate the power of 10 needed to shift the value to have the desired number of significant figures
+        // Calculate the power of 10 needed to shift the value to have the desired
+        // number of significant figures
         double d = Math.ceil(Math.log10(Math.abs(value)));
         int power = numSigFigs - (int) d;
         double magnitude = Math.pow(10, power);
@@ -134,13 +142,16 @@ class CalculateDistance {
         if (point == null) {
             throw new IllegalArgumentException(pointName + " cannot be null!");
         }
-         // Check if the point has exactly 3 dimensions
+        // Check if the point has exactly 3 dimensions
         if (point.getDimension() != 3) {
             throw new IllegalArgumentException(pointName + " must have exactly 3 values!");
         }
     }
-    // Method to calculate the distance between two points using a specified distance function
-    private static double calculateDistance(RealVector pointA, RealVector pointB, BiFunction<RealVector, RealVector, Double> distanceFunction) {
+
+    // Method to calculate the distance between two points using a specified
+    // distance function
+    private static double calculateDistance(RealVector pointA, RealVector pointB,
+            BiFunction<RealVector, RealVector, Double> distanceFunction) {
         // Apply the distance function to points A and B and return the result
         return distanceFunction.apply(pointA, pointB);
     }
