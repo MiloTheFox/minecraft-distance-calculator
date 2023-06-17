@@ -6,7 +6,7 @@ This repository contains a Minecraft distance calculator that allows players to 
 ## Installation
 To install the Minecraft distance calculator, follow these steps:
 
-1. Clone this repository to your local machine (Install [Git](https://git-scm.com/downloads) and choose your Operating System if you haven't already):
+1. Clone this repository to your local machine (Install [Git](https://git-scm.com/downloads) and choose your Operating System if it's not on your System already):
 ```shell
 git clone https://github.com/Sweet-Tooth11/minecraft-distance-calculator.git
 ```
