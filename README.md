@@ -1,7 +1,7 @@
 # Minecraft Distance Calculator
 
 ## Overview
-This repository contains a Minecraft distance calculator that allows players to calculate the distance between two points in the game.
+This repository contains a Minecraft distance calculator that allows the user to calculate the distance between two points in the game.
 
 ## Installation
 To install the Minecraft distance calculator, follow these steps:
@@ -12,17 +12,17 @@ git clone https://github.com/Sweet-Tooth11/minecraft-distance-calculator.git
 ```
 
 2. Install and include the following library into the project:
-- [Apache Commons Math](https://commons.apache.org/proper/commons-math/download_math.cgi): A library providing mathematical and statistical components.
-- After that is done, extract the library and put the `.jar` files into a folder called "libraries" (or whatever you prefer)
+- [JavaFX](https://gluonhq.com/products/javafx/): A library made for GUI Creation
+- After that is done, extract the library and put the files into a folder called "libs" (or whatever you prefer to call it)
 - The result should look like this:
 
-[![Result](https://i.postimg.cc/90R6jhmr/Screenshot-2023-06-13-142401.png)](https://postimg.cc/rRTnS7tk)
+[![Result](https://i.postimg.cc/0jpNf9kk/Screenshot-2023-07-09-131500.png)](https://postimg.cc/GTmr3wTV)
 
-3. Navigate to the repository directory and run `javac -cp "./libraries/commons-math4-core-4.0-beta1.jar;./libraries/commons-math4-legacy-4.0-beta1.jar;./libraries/commons-math4-legacy-exception-4.0-beta1.jar" main.java` to compile the code.
+3. Navigate to the repository directory and run `./compile.bat` to compile the code.
 
-4. After that, run `java -cp "./libraries/commons-math4-core-4.0-beta1.jar;./libraries/commons-math4-legacy-4.0-beta1.jar;./libraries/commons-math4-legacy-exception-4.0-beta1.jar" main.java` to start the program.
+4. After that, run `./execute.bat` to start the program.
 
-5. Follow the instructions and get the distance between the coordinates of provided points.
+5. Put in Minecraft coordinates of your choice and choose the Calculation Method you want to use. [Here is an explanation of both Calculation Methods](https://github.com/Sweet-Tooth11/minecraft-distance-calculator/tree/main/README.md#explanation-of-the-different-calculation-methods)
 
 ## Disclaimer
 
@@ -34,7 +34,7 @@ To use the Minecraft distance calculator, enter the coordinates of two points in
 
 If you don't know how to get your coordinates, follow these steps:
 1. Run any Minecraft Version from Alpha 1.2.3 or higher.
-2. Press F3, and you will be met with a screen like this (Positioning may vary depending on the specific Minecraft Version):
+2. Press F3, and you will be met with a screen like this (Positioning may vary depending on the used Minecraft Version):
 
 [![Example](https://i.postimg.cc/gcf8zpxF/2023-06-03-04-27-22.png)](https://postimg.cc/w3Q72S50)
 
@@ -42,14 +42,16 @@ If you don't know how to get your coordinates, follow these steps:
 
 ## Examples
 Euclidean:
-[![Screenshot-2023-06-08-022958.png](https://i.postimg.cc/157h46JB/Screenshot-2023-06-08-022958.png)](https://postimg.cc/rK4YPd6R)
+
+[![Euclidean](https://i.postimg.cc/JhpKrBkX/Screenshot-2023-07-09-133720.png)](https://postimg.cc/wtsDFMFx)
 
 Manhattan:
-[![Screenshot-2023-06-08-023038.png](https://i.postimg.cc/RVZxMGQq/Screenshot-2023-06-08-023038.png)](https://postimg.cc/jCmFcH1r)
+
+[![Screenshot-2023-07-09-133735.png](https://i.postimg.cc/RFqdNV7D/Screenshot-2023-07-09-133735.png)](https://postimg.cc/0MRD4vHY)
 
 ## Explanation of the different Calculation Methods
 
-**Euclidean:**
+# **Euclidean:**
 
 Do you remember learning about distance in geometry class? You probably learned that distance is the length of the line that connects two points. That is the idea behind the Euclidean distance method, which is named after Euclid, the famous Greek mathematician who studied geometry.
 
@@ -77,7 +79,8 @@ This means that you also consider how far the points are along a third axis call
 
 The Euclidean distance method is very popular because it makes sense geometrically and has some nice features. For instance, it is always positive, it is the same no matter which way you go, and it never underestimates the distance. These features make it a good way to measure how close or far away two points or objects are in math and computer science.
 
-**Manhattan:**
+
+# **Manhattan:**
 
 Imagine you are in Manhattan, where the streets are arranged like a grid. To get from one place to another, you can only walk along the streets, not diagonally or across blocks. The Manhattan distance method tells you how far you have to walk by adding up the number of blocks you have to go east or west, and the number of blocks you have to go north or south.
 
