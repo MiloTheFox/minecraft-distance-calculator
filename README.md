@@ -11,18 +11,11 @@ To install the Minecraft distance calculator, follow these steps:
 git clone https://github.com/Sweet-Tooth11/minecraft-distance-calculator.git
 ```
 
-2. Install and include the following library into the project:
-- [JavaFX](https://gluonhq.com/products/javafx/): A library made for GUI Creation
-- After that is done, extract the library and put the files into a folder called "libs" (or whatever you prefer to call it)
-- The result should look like this:
-
-[![Result](https://i.postimg.cc/0jpNf9kk/Screenshot-2023-07-09-131500.png)](https://postimg.cc/GTmr3wTV)
-
-3. Navigate to the repository directory and run `./compile.bat` to compile the code.
-
-4. After that, run `./execute.bat` to start the program.
-
-5. Put in Minecraft coordinates of your choice and choose the Calculation Method you want to use. [Here is an explanation of both Calculation Methods](https://github.com/Sweet-Tooth11/minecraft-distance-calculator/tree/main/README.md#explanation-of-the-different-calculation-methods)
+2. (Assuming you already have JDK 17.0.8 installed, if not, go to [this](https://adoptium.net/) Website and install Java)
+3. (I'm also assuming that you use the Eclipse IDE to program in Java. If not, please head to [this](https://www.eclipse.org/downloads/) Website and install it)
+   Open up Eclipse, go to the folder named "minecraft-distance-calculator" and run the .java file.
+   
+4. Put in Minecraft coordinates of your choice and choose the Calculation Method you want to use. [Here is an explanation of both Calculation Methods](https://github.com/Sweet-Tooth11/minecraft-distance-calculator/tree/main/README.md#explanation-of-the-different-calculation-methods)
 
 ## Disclaimer
 
@@ -38,16 +31,16 @@ If you don't know how to get your coordinates, follow these steps:
 
 [![Example](https://i.postimg.cc/gcf8zpxF/2023-06-03-04-27-22.png)](https://postimg.cc/w3Q72S50)
 
-3. Note these coordinates down (either through Notepad, noting these down using the Chat or directly copying them into the clipboard using Debugging Controls [F3 + C]).
+3. Note these coordinates down (either through Notepad, using a screenshot, or copy-pasting these down using the Chat).
 
 ## Examples
 Euclidean:
 
-[![Euclidean](https://i.postimg.cc/JhpKrBkX/Screenshot-2023-07-09-133720.png)](https://postimg.cc/wtsDFMFx)
+[![Euclidean](https://i.postimg.cc/BQ4bvgVV/Screenshot-2023-08-06-154520.png)](https://postimg.cc/DmpnjqFr)
 
 Manhattan:
 
-[![Screenshot-2023-07-09-133735.png](https://i.postimg.cc/RFqdNV7D/Screenshot-2023-07-09-133735.png)](https://postimg.cc/0MRD4vHY)
+[![Manhattan](https://i.postimg.cc/QCs8H80T/Screenshot-2023-08-06-154600.png)](https://postimg.cc/G87wfC0L)
 
 ## Explanation of the different Calculation Methods
 
