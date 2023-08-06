@@ -20,7 +20,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
 	private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Text Fields and Buttons");
+        JFrame frame = new JFrame("Distance Calculator");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new GridLayout(9, 2));
         frame.setBackground(Color.BLACK);
