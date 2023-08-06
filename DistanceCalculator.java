@@ -1,6 +1,6 @@
 /**
  * @author Sweet_Tooth11
- * @version v1.2, 08/06/2023 - 03:00 PM
+ * @version v1.2, 08/06/2023 - 03:41 PM
  */
 
 import java.awt.Color;
@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 public class Main {
-	public static void DistanceCalculator(String[] args) {
+	public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
 	private static void createAndShowGUI() {
@@ -35,8 +35,8 @@ public class Main {
         JButton button1 = new JButton("Euclidean Distance");
         JButton button2 = new JButton("Manhattan Distance");
 
-        button1.addActionListener(e -> calculateDistanceAndShowResult(textFields, "euclidean"));
-        button2.addActionListener(e -> calculateDistanceAndShowResult(textFields, "manhattan"));
+        button1.addActionListener(e -> calculateDistanceAndShowResult(textFields, "Euclidean"));
+        button2.addActionListener(e -> calculateDistanceAndShowResult(textFields, "Manhattan"));
 
         frame.add(button1);
         frame.add(button2);
@@ -60,15 +60,14 @@ public class Main {
             }
 
             BigDecimal result = BigDecimal.ZERO;
-            if (distanceType.equals("euclidean")) {
+            if (distanceType.equals("Euclidean")) {
                 result = calculateEuclideanDistance(coordinates[0], coordinates[1], coordinates[2],
                         coordinates[3], coordinates[4], coordinates[5]);
-            } else if (distanceType.equals("manhattan")) {
+            } else if (distanceType.equals("Manhattan")) {
                 result = calculateManhattanDistance(coordinates[0], coordinates[1], coordinates[2],
                         coordinates[3], coordinates[4], coordinates[5]);
             }
-
-            JOptionPane.showMessageDialog(null, "The Result is: " + result);
+            JOptionPane.showMessageDialog(null, "The Result of the is: " + result, "Result", JOptionPane.INFORMATION_MESSAGE);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Please enter valid numbers for all coordinates.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -83,7 +82,10 @@ public class Main {
             return false;
         }
     }
-
+ // Helper method to round a BigDecimal to a specified number of decimal places.
+    private static BigDecimal round(BigDecimal value, int scale) {
+        return value.setScale(scale, RoundingMode.HALF_UP);
+    }
     // Use BigDecimal for precise calculations.
     private static BigDecimal calculateEuclideanDistance(BigDecimal x1, BigDecimal y1, BigDecimal z1,
                                                          BigDecimal x2, BigDecimal y2, BigDecimal z2) {
@@ -92,10 +94,10 @@ public class Main {
         BigDecimal dy = y2.subtract(y1);
         BigDecimal dz = z2.subtract(z1);
 
-        return sqrt(dx.pow(2).add(dy.pow(2)).add(dz.pow(2)));
+        return round(sqrt(dx.pow(2).add(dy.pow(2)).add(dz.pow(2))), 0);
     }
 
-    private static BigDecimal calculateManhattanDistance(BigDecimal x1, BigDecimal y1, BigDecimal z1,
+	private static BigDecimal calculateManhattanDistance(BigDecimal x1, BigDecimal y1, BigDecimal z1,
                                                          BigDecimal x2, BigDecimal y2, BigDecimal z2) {
         // Calculate the Manhattan distance using the formula: |x2 - x1| + |y2 - y1| + |z2 - z1|
         BigDecimal dx = x2.subtract(x1).abs();
