@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Main {
+public class DistanceCalculator {
     // Defining the Constant...
     private static final int NUM_COORDINATES = 6;
 
