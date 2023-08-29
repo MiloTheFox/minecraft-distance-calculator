@@ -1,120 +1,175 @@
 /**
  * @author Sweet_Tooth11
- * @version v1.3, 08/28/2023 - 10:10PM GMT+1
+ * @version v1.3, 08/29/2023 - 02:30AM GMT+1
  */
 
-import javax.swing.*;
-import java.awt.*;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.stream.Stream;
+// Note to myself: Go to sleep
 
-public class DistanceCalculator {
-    private static final int NUM_COORDINATES = 6;
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class DistanceCalculatorGUI extends Application {
+
+    public void start(Stage primaryStage) {
+        // Set the window icon
+        Image icon = new Image(getClass().getResourceAsStream("icon.png"));
+        primaryStage.getIcons().add(icon);
+
+        // Create a grid pane to hold the UI components
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20));
+        grid.setStyle("-fx-background-color: #d3d3d3;");
+
+        Label pointALabel = createLabel("Point A (x y z):");
+        TextField pointATextField = createTextField();
+        Label pointBLabel = createLabel("Point B (x y z):");
+        TextField pointBTextField = createTextField();
+
+        // Add the labels and text fields to the grid pane
+        grid.add(pointALabel, 0, 0);
+        grid.add(pointATextField, 1, 0);
+        grid.add(pointBLabel, 0, 1);
+        grid.add(pointBTextField, 1, 1);
+
+        // Create a label and buttons for choosing the distance calculation method
+        Label methodLabel = createLabel("Distance Calculation Method:");
+        Button euclideanButton = createButton("Euclidean");
+        Button manhattanButton = createButton("Manhattan");
+
+        // Add the label and buttons to the grid pane
+        grid.add(methodLabel, 0, 2);
+        grid.add(euclideanButton, 1, 2);
+        grid.add(manhattanButton, 2, 2);
+
+        // Create a label to display the result
+        Label resultLabel = createLabel("");
+        grid.add(resultLabel, 0, 3, 3, 1);
+
+        // Set the action for the Euclidean button
+        euclideanButton.setOnAction(event -> {
+            // Read the coordinates from the text fields and validate them
+            String[] pointACoordinates = pointATextField.getText().split(" ");
+            String[] pointBCoordinates = pointBTextField.getText().split(" ");
+
+            if (pointACoordinates.length != 3 || pointBCoordinates.length != 3) {
+                resultLabel.setText("Invalid coordinates. Enter three numbers for each point!");
+                resultLabel.setStyle("-fx-text-fill: #ff0000; -fx-font-size: 14px;"); // Set text color to red
+                return;
+            }
+
+            try {
+                double x1 = Double.parseDouble(pointACoordinates[0]);
+                double y1 = Double.parseDouble(pointACoordinates[1]);
+                double z1 = Double.parseDouble(pointACoordinates[2]);
+                double x2 = Double.parseDouble(pointBCoordinates[0]);
+                double y2 = Double.parseDouble(pointBCoordinates[1]);
+                double z2 = Double.parseDouble(pointBCoordinates[2]);
+
+                // Calculate the Euclidean distance between points A and B
+                double distance = calculateEuclideanDistance(x1, y1, z1, x2, y2, z2);
+                String formattedDistance = distance % 1 == 0 ? String.valueOf((int) distance) : String.valueOf(distance);
+                // Update the result label with the calculated distance
+                resultLabel.setText("Euclidean distance: ~" + formattedDistance + " Blocks");
+                resultLabel.setStyle("-fx-text-fill: #000000; -fx-font-size: 14px;");
+                return;
+            } catch (NumberFormatException e) {
+                resultLabel.setText("Invalid coordinates. Enter numeric values only!");
+                resultLabel.setStyle("-fx-text-fill: #ff0000; -fx-font-size: 14px;");
+                return;
+            }
+        });
+
+        // Set the action for the Manhattan button
+        manhattanButton.setOnAction(event -> {
+            // Read the coordinates from the text fields and validate them
+            String[] pointACoordinates = pointATextField.getText().split(" ");
+            String[] pointBCoordinates = pointBTextField.getText().split(" ");
+
+            if (pointACoordinates.length != 3 || pointBCoordinates.length != 3) {
+                resultLabel.setText("Invalid coordinates. Enter three numbers for each point!");
+                resultLabel.setStyle("-fx-text-fill: #ff0000; -fx-font-size: 14px"); // Set text color to red
+                return;
+            }
+
+            try {
+                double x1 = Double.parseDouble(pointACoordinates[0]);
+                double y1 = Double.parseDouble(pointACoordinates[1]);
+                double z1 = Double.parseDouble(pointACoordinates[2]);
+                double x2 = Double.parseDouble(pointBCoordinates[0]);
+                double y2 = Double.parseDouble(pointBCoordinates[1]);
+                double z2 = Double.parseDouble(pointBCoordinates[2]);
+
+                // Calculate the Manhattan distance between points A and B
+                double distance = calculateManhattanDistance(x1, y1, z1, x2, y2, z2);
+                String formattedDistance = distance % 1 == 0 ? String.valueOf((int) distance) : String.valueOf(distance);
+                // Update the result label with the calculated distance
+                resultLabel.setText("Manhattan distance: ~" + formattedDistance + " Blocks");
+                resultLabel.setStyle("-fx-text-fill: #000000; -fx-font-size: 14px;");
+                return;
+            } catch (NumberFormatException e) {
+                resultLabel.setText("Invalid coordinates. Enter numeric values only!");
+                resultLabel.setStyle("-fx-text-fill: #ff0000; -fx-font-size: 14px;");
+                return;
+            }
+        });
+
+        // Create a scene and add the grid pane to it
+        Scene scene = new Scene(grid);
+
+        // Set up the stage and show it
+        primaryStage.setTitle("Distance Calculator");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private Label createLabel(String text) {
+        Label label = new Label(text);
+        label.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+        return label;
+    }
+
+    private TextField createTextField() {
+        TextField textField = new TextField();
+        textField.setStyle("-fx-font-size: 14px;");
+        return textField;
+    }
+
+    private Button createButton(String text) {
+        Button button = new Button(text);
+        button.setStyle("-fx-font-size: 14px; -fx-padding: 6px 12px;");
+        return button;
+    }
+
+    private double calculateEuclideanDistance(double x1, double y1, double z1, double x2, double y2, double z2) {
+        // Calculate the Euclidean distance using the formula: sqrt((x2 - x1)^2 + (y2 -
+        // y1)^2 + (z2 - z1)^2)
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        double dz = z2 - z1;
+
+        return Math.round(Math.sqrt(dx * dx + dy * dy + dz * dz));
+    }
+
+    private double calculateManhattanDistance(double x1, double y1, double z1, double x2, double y2, double z2) {
+        // Calculate the Manhattan distance using the formula: |x2 - x1| + |y2 - y1| +
+        // |z2 - z1|
+        double dx = Math.abs(x2 - x1);
+        double dy = Math.abs(y2 - y1);
+        double dz = Math.abs(z2 - z1);
+
+        return dx + dy + dz;
+    }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame frame = new JFrame("Distance Calculator");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setLayout(new GridLayout(NUM_COORDINATES + 1, 2));
-            frame.setBackground(Color.BLACK);
-
-            DistanceCalculatorUI.initializeUI(frame);
-
-            frame.setLocationRelativeTo(null);
-            frame.pack();
-            frame.setVisible(true);
-        });
+        launch(args);
     }
-}
-
-class DistanceCalculatorUI {
-    private static final int NUM_COORDINATES = 6;
-
-    public static void initializeUI(JFrame frame) {
-        JTextField[] textFields = new JTextField[NUM_COORDINATES];
-
-        for (int i = 0; i < NUM_COORDINATES; i++) {
-            textFields[i] = new JTextField(5);
-            frame.add(createCoordinateLabel(i));
-            frame.add(textFields[i]);
-        }
-
-        JButton button1 = new JButton("Euclidean Distance");
-        JButton button2 = new JButton("Manhattan Distance");
-
-        button1.addActionListener(e -> calculateAndShowResult(textFields, DistanceType.EUCLIDEAN));
-        button2.addActionListener(e -> calculateAndShowResult(textFields, DistanceType.MANHATTAN));
-
-        frame.add(button1);
-        frame.add(button2);
-    }
-
-    private static JLabel createCoordinateLabel(int i) {
-        String label = String.format("Coordinate %d:", i + 1);
-        return new JLabel(label);
-    }
-
-    private static void calculateAndShowResult(JTextField[] textFields, DistanceType distanceType) {
-        try {
-            BigDecimal[] coordinates = extractCoordinates(textFields);
-            BigDecimal result = calculateDistance(coordinates, distanceType);
-            showInfoDialog("The result is: " + result);
-        } catch (NumberFormatException ex) {
-            showErrorDialog("Please enter valid numbers for all coordinates.");
-        }
-    }
-
-    private static BigDecimal[] extractCoordinates(JTextField[] textFields) {
-        return Stream.of(textFields)
-            .map(tf -> new BigDecimal(tf.getText()))
-            .toArray(BigDecimal[]::new);
-    }
-
-    private static BigDecimal calculateDistance(BigDecimal[] coordinates, DistanceType distanceType) {
-        BigDecimal[] differences = new BigDecimal[NUM_COORDINATES / 2];
-
-        for (int i = 0; i < differences.length; i++) {
-            int startIndex = i * 2;
-            int endIndex = startIndex + 1;
-            differences[i] = coordinates[endIndex].subtract(coordinates[startIndex]);
-        }
-
-        switch (distanceType) {
-            case EUCLIDEAN:
-                BigDecimal sumOfSquares = Stream.of(differences)
-                    .map(d -> d.pow(2))
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
-                double sqrtValue = Math.sqrt(sumOfSquares.doubleValue());
-                return round(BigDecimal.valueOf(sqrtValue), 0);
-            case MANHATTAN:
-                BigDecimal totalAbsDifference = Stream.of(differences)
-                    .map(BigDecimal::abs)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
-                return totalAbsDifference;
-            default:
-                throw new IllegalArgumentException("Unknown distance type");
-        }
-    }
-
-    private static BigDecimal round(BigDecimal value, int scale) {
-        return value.setScale(scale, RoundingMode.HALF_UP);
-    }
-
-    private static void showErrorDialog(String message) {
-        showDialog(message, "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private static void showInfoDialog(String message) {
-        showDialog(message, "Result", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    private static void showDialog(String message, String title, int messageType) {
-        JOptionPane.showMessageDialog(null, message, title, messageType);
-    }
-}
-
-enum DistanceType {
-    EUCLIDEAN,
-    MANHATTAN
 }
