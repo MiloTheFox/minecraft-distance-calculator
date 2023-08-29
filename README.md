@@ -20,11 +20,11 @@ git clone https://github.com/Sweet-Tooth11/minecraft-distance-calculator.git
 
 [![Result](https://i.postimg.cc/0jpNf9kk/Screenshot-2023-07-09-131500.png)](https://postimg.cc/GTmr3wTV)
 
-3. Navigate to the repository directory and run `./compile.bat` to compile the code.
+4. Navigate to the repository directory and run `./compile.bat` to compile the code.
 
-4. After that, run `./execute.bat` to start the program.
+5. After that, run `./execute.bat` to start the program.
 
-5. Put in Minecraft coordinates of your choice and choose the Calculation Method you want to use. [Here is an explanation of both Calculation Methods](https://github.com/Sweet-Tooth11/minecraft-distance-calculator/tree/main/README.md#explanation-of-the-different-calculation-methods)
+6. Put in Minecraft coordinates of your choice and choose the Calculation Method you want to use. [Here is an explanation of both Calculation Methods](https://github.com/Sweet-Tooth11/minecraft-distance-calculator/tree/main/README.md#explanation-of-the-different-calculation-methods)
 
 ## Disclaimer
 
