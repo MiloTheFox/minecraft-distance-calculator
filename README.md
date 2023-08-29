@@ -12,10 +12,19 @@ git clone https://github.com/Sweet-Tooth11/minecraft-distance-calculator.git
 ```
 
 2. (Assuming you already have JDK 17.0.8 installed, if not, go to [this](https://adoptium.net/) Website and install Java)
-3. (I'm also assuming that you use the Eclipse IDE to program in Java. If not, please head to [this](https://www.eclipse.org/downloads/) Website and install it)
-   Open up Eclipse, go to the folder named "minecraft-distance-calculator" and run the .java file.
-   
-4. Put in Minecraft coordinates of your choice and choose the Calculation Method you want to use. [Here is an explanation of both Calculation Methods](https://github.com/Sweet-Tooth11/minecraft-distance-calculator/tree/main/README.md#explanation-of-the-different-calculation-methods)
+
+3. Install and include the following library into the project:
+- [JavaFX](https://gluonhq.com/products/javafx/): A library made for GUI Creation
+- After that is done, extract the library and put the files into a folder called "libs" (or whatever you prefer to call it)
+- The result should look like this:
+
+[![Result](https://i.postimg.cc/0jpNf9kk/Screenshot-2023-07-09-131500.png)](https://postimg.cc/GTmr3wTV)
+
+3. Navigate to the repository directory and run `./compile.bat` to compile the code.
+
+4. After that, run `./execute.bat` to start the program.
+
+5. Put in Minecraft coordinates of your choice and choose the Calculation Method you want to use. [Here is an explanation of both Calculation Methods](https://github.com/Sweet-Tooth11/minecraft-distance-calculator/tree/main/README.md#explanation-of-the-different-calculation-methods)
 
 ## Disclaimer
 
