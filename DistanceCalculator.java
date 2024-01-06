@@ -1,16 +1,15 @@
 /**
  * @author Sweet_Tooth11
- * @version v1.3, 09/16/2023 - 8:33PM GMT+1
+ * @version v1.4, 01/06/2024 - 11:54AM GMT+1
  */
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.*;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.stream.Stream;
+import org.apache.commons.math3.ml.distance.*;
 
-public class DistanceCalculator {
+public class DistanceCalculatorGUI {
     private static final int NUM_COORDINATES = 6;
 
     public static void main(String[] args) {
@@ -18,9 +17,7 @@ public class DistanceCalculator {
             JFrame frame = new JFrame("Distance Calculator");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setLayout(new GridLayout(NUM_COORDINATES + 1, 2));
-
             DistanceCalculatorUI.initializeUI(frame);
-
             frame.pack();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
@@ -30,6 +27,8 @@ public class DistanceCalculator {
 
 class DistanceCalculatorUI {
     private static final int NUM_COORDINATES = 6;
+    private static final EuclideanDistance EUCLIDEAN_DISTANCE = new EuclideanDistance();
+    private static final ManhattanDistance MANHATTAN_DISTANCE = new ManhattanDistance();
 
     public static void initializeUI(JFrame frame) {
         JTextField[] textFields = new JTextField[NUM_COORDINATES];
@@ -39,14 +38,13 @@ class DistanceCalculatorUI {
             frame.add(createCoordinateLabel(i));
             frame.add(textFields[i]);
         }
-
-        addButton(frame, "Euclidean Distance", e -> calculateAndShowResult(textFields, DistanceType.EUCLIDEAN));
-        addButton(frame, "Manhattan Distance", e -> calculateAndShowResult(textFields, DistanceType.MANHATTAN));
+        addButton(frame, "Euclidean Distance", e -> calculateAndShowResult(textFields, EUCLIDEAN_DISTANCE::compute));
+        addButton(frame, "Manhattan Distance", e -> calculateAndShowResult(textFields, MANHATTAN_DISTANCE::compute));
     }
 
-     private static JLabel createCoordinateLabel(int i) {
-     String[] labels = {"X1", "Y1", "Z1", "X2", "Y2", "Z2"};
-     return new JLabel(labels[i]);
+    private static JLabel createCoordinateLabel(int i) {
+        String[] labels = { "X1", "Y1", "Z1", "X2", "Y2", "Z2" };
+        return new JLabel(labels[i]);
     }
 
     private static void addButton(JFrame frame, String text, ActionListener listener) {
@@ -55,50 +53,18 @@ class DistanceCalculatorUI {
         frame.add(button);
     }
 
-    private static void calculateAndShowResult(JTextField[] textFields, DistanceType distanceType) {
+    private static void calculateAndShowResult(JTextField[] textFields, DistanceFunction distanceFunction) {
         try {
-            BigDecimal[] coordinates = extractCoordinates(textFields);
-            BigDecimal result = calculateDistance(coordinates, distanceType);
+            double[] coordinates = extractCoordinates(textFields);
+            double result = distanceFunction.compute(coordinates, new double[coordinates.length]);
             showInfoDialog("The result is: " + result);
         } catch (NumberFormatException ex) {
             showErrorDialog("Please enter valid numbers for all coordinates.");
         }
     }
 
-    private static BigDecimal[] extractCoordinates(JTextField[] textFields) {
-        return Stream.of(textFields)
-                .map(tf -> new BigDecimal(tf.getText()))
-                .toArray(BigDecimal[]::new);
-    }
-
-    private static BigDecimal calculateDistance(BigDecimal[] coordinates, DistanceType distanceType) {
-        BigDecimal[] differences = new BigDecimal[NUM_COORDINATES / 2];
-
-        for (int i = 0; i < differences.length; i++) {
-            int startIndex = i * 2;
-            int endIndex = startIndex + 1;
-            differences[i] = coordinates[endIndex].subtract(coordinates[startIndex]);
-        }
-
-        switch (distanceType) {
-            case EUCLIDEAN:
-                BigDecimal sumOfSquares = Stream.of(differences)
-                        .map(d -> d.pow(2))
-                        .reduce(BigDecimal.ZERO, BigDecimal::add);
-                double sqrtValue = Math.sqrt(sumOfSquares.doubleValue());
-                return round(BigDecimal.valueOf(sqrtValue), 0);
-            case MANHATTAN:
-                BigDecimal totalAbsDifference = Stream.of(differences)
-                        .map(BigDecimal::abs)
-                        .reduce(BigDecimal.ZERO, BigDecimal::add);
-                return totalAbsDifference;
-            default:
-                throw new IllegalArgumentException("Unknown distance type");
-        }
-    }
-
-    private static BigDecimal round(BigDecimal value, int scale) {
-        return value.setScale(scale, RoundingMode.HALF_UP);
+    private static double[] extractCoordinates(JTextField[] textFields) {
+        return Stream.of(textFields).mapToDouble(tf -> Double.parseDouble(tf.getText())).toArray();
     }
 
     private static void showErrorDialog(String message) {
@@ -112,9 +78,9 @@ class DistanceCalculatorUI {
     private static void showDialog(String message, String title, int messageType) {
         JOptionPane.showMessageDialog(null, message, title, messageType);
     }
-}
 
-enum DistanceType {
-    EUCLIDEAN,
-    MANHATTAN
+    @FunctionalInterface
+    interface DistanceFunction {
+        double compute(double[] a, double[] b);
+    }
 }
